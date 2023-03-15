@@ -99,7 +99,6 @@ class SecondFragment : Fragment() {
 
             // Подтверждаем
             val submitResponse = transferMutationService.submitWatch(submitBody)
-//            val extrinsic = service.getExtrinsic(submitResponse.hash, seed)
 
             binding.textviewSecond.text = submitResponse.hash
         }
@@ -111,54 +110,41 @@ class SecondFragment : Fragment() {
             val submitResponse = createCollection.submitWatch(
                 CreateCollectionMutationRequest(
                     address =  "5DnUE1uV7iW25bUriWVPHY67KMm2t6g5v23GzVbZCUc8fyBD",
-                    name = "Unique SDK Collection Android Test",
+                    name = "Unique SDK Collection Android Test 2",
                     description = "Unique SDK Collection Android Test",
-                    tokenPrefix = "MAD",
-                    signature = "123"
+                    tokenPrefix = "MAD2"
                 )
             )
 
-            binding.textViewThird.text = submitResponse.hash
+            val hash = submitResponse.hash!!
+
+//            val extrinsicStatus = sdk.extrinsicService.getExtrinsicStatus(hash)
+
+            binding.textViewThird.text = hash
         }
 
-//        scope.launch {
-//            val tokenService = sdk.tokenService;
-//            val createTokenArgs = CreateNewTokenMutationRequest(
-//                address = "5DnUE1uV7iW25bUriWVPHY67KMm2t6g5v23GzVbZCUc8fyBD",
-//                collectionId = BigDecimal.valueOf(123),
-//                data = UniqueTokenToCreateDto(
-//                    image = UniqueTokenToCreateDtoImage(
-//                        ipfsCid = "QmPh459X5FMnUCzVnbm9he7YmiehhUpfHRfyXbcN53ZW4Y"
-//                    ),
-//                    encodedAttributes = mapOf(
-//                        "0" to UniqueTokenToCreateDtoEncodedAttributesValue(BigDecimal(0)),
-//                        "1" to UniqueTokenToCreateDtoEncodedAttributesValue(BigDecimal(0))
-//                    )
-//                )
-//            )
-//
-//
-//            val createToken = tokenService.getCreateToken()
-//            val createTokenResponse = createToken.build(createTokenArgs)
-//
-//            val signBody = UnsignedTxPayloadResponse(
-//                createTokenResponse.signerPayloadJSON,
-//                createTokenResponse.signerPayloadRaw,
-//                createTokenResponse.signerPayloadHex
-//            )
-//
-//            val signResponse = createToken.sign(signBody)
-//
-//            val submitBody = SubmitTxBody(signResponse.signerPayloadJSON, signResponse.signature)
-//
-//            val submitResponse = createToken.submitWatch(submitBody)
-//
-//            binding.textViewThird.text = submitResponse.hash
-////            const result = await tok.create.submitWaitResult(createArgs);
-////            const { collectionId, tokenId } = result.parsed;
-////
-////            const token = await sdk.tokens.get({ collectionId, tokenId });
-//        }
+        scope.launch {
+            val token = sdk.tokenService
+            val createToken = token.getCreateToken()
+
+            val submitResponse = createToken.submitWatch(
+                CreateNewTokenMutationRequest(
+                    address =  "5DnUE1uV7iW25bUriWVPHY67KMm2t6g5v23GzVbZCUc8fyBD",
+                    collectionId = BigDecimal.valueOf(898),
+                    data = UniqueTokenToCreateDto(
+                        image = UniqueTokenToCreateDtoImage(
+                            ipfsCid = "QmPh459X5FMnUCzVnbm9he7YmiehhUpfHRfyXbcN53ZW4Y"
+                        )
+                    )
+                )
+            )
+
+            val hash = submitResponse.hash!!
+
+//            val extrinsicStatus = sdk.extrinsicService.getExtrinsicStatus(hash)
+
+            binding.textViewFourth.text = hash
+        }
 
         binding.buttonSecond.setOnClickListener {
             findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
