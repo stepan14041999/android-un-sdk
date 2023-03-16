@@ -67,7 +67,7 @@ class SecondFragment : Fragment() {
         // Создаём объект для подписи транзакции Sr25519SignerWrapper(seed, password)
         val signer = Sr25519SignerWrapper(seed, null, false)
         // Создаём SDK для вызова API
-        val sdk = UniqueSdk("https://rest.opal.uniquenetwork.dev")
+        val sdk = UniqueSdk("https://rest.unique.network/opal")
 
         UniqueSdk.signerWrapper = signer
 
